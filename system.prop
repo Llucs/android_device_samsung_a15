@@ -51,11 +51,3 @@ ro.usb.ptp=true
 ro.opengles.version=196610
 ro.hardware.egl=mali-g57
 ro.hardware.vulkan=mali-g57
-
-# Build properties
-ro.build.display.id=$(BUILD_ID)
-ro.build.version.incremental=$(BUILD_NUMBER)
-ro.build.description=$(BUILD_DESCRIPTION)
-ro.build.fingerprint=$(BUILD_FINGERPRINT)
-
-

@@ -1,0 +1,24 @@
+# Copyright (C) 2024 The Android Open Source Project
+#
+# SPDX-License-Identifier: Apache-2.0
+#
+
+# Blobs necessários para o Galaxy A155M (MT6789)
+# Estes são apenas exemplos e devem ser substituídos pelos blobs reais
+# extraídos do dispositivo.
+
+# Binários do Vendor
+# - /vendor/bin/hw/android.hardware.audio.service
+# - /vendor/bin/hw/android.hardware.graphics.composer@2.1-service
+# - /vendor/bin/hw/android.hardware.wifi@1.0-service
+
+# Bibliotecas do Vendor
+# - /vendor/lib64/libaudio.so
+# - /vendor/lib64/libmtk_symbols.so
+
+# Arquivos de configuração
+# - /vendor/etc/audio_policy_configuration.xml
+# - /vendor/etc/vintf/manifest.xml
+
+# Arquivos de firmware
+# - /vendor/firmware/wlan/WIFI_RAM_CODE.bin
