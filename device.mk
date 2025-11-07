@@ -7,32 +7,20 @@
 # Inherit from the proprietary vendor files.
 $(call inherit-product, vendor/samsung/a15/a15-vendor.mk)
 
-# Inherit from the common Open Source product configuration
-$(call inherit-product, $(SRC_TARGET_DIR)/product/full_base_telephony.mk)
+# Include device-specific system properties
+$(call inherit-product-if-exists, $(LOCAL_PATH)/system.prop)
 
-# Device identifier
-PRODUCT_DEVICE := a15g99
-PRODUCT_NAME := crdroid_a15g99
-PRODUCT_BRAND := samsung
-PRODUCT_MODEL := SM-A155M
-PRODUCT_MANUFACTURER := samsung
-
-# GMS Client ID
-PRODUCT_GMS_CLIENTID_BASE := android-samsung
-
-# Build properties
+# Build fingerprint
 PRODUCT_BUILD_PROP_OVERRIDES += \
     PRIVATE_BUILD_DESC="a15m-user 14 UP1A.231005.007 A155MUBU1AXC1 release-keys"
 
 BUILD_FINGERPRINT := samsung/a15m/a15:14/UP1A.231005.007/A155MUBU1AXC1:user/release-keys
 
-# System properties
-PRODUCT_SYSTEM_PROPERTIES += \
+PRODUCT_PROPERTY_OVERRIDES += \
     ro.build.fingerprint=$(BUILD_FINGERPRINT)
 
-# Overlays
-DEVICE_PACKAGE_OVERLAYS += \
-    $(LOCAL_PATH)/overlay
+# Overlay
+PRODUCT_PACKAGE_OVERLAYS += $(LOCAL_PATH)/overlay
 
 # Screen density
 PRODUCT_AAPT_CONFIG := normal
