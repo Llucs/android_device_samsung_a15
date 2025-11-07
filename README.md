@@ -1,38 +1,30 @@
 ## Device Tree for Samsung Galaxy A15 4G (SM-A155M)
 
-⚠️ Work In Progress (WIP) ⚠️
-This device tree is under active development. Expect bugs, missing features, and instability. Do not use it as a daily driver unless you know what you are doing.
+⚠️ **Work In Progress (WIP)** ⚠️  
+This device tree is currently under active development.  
+Expect bugs, missing features, and possible instability.  
+Do not use it as a daily driver unless you know exactly what you’re doing.
 
 ---
 
-Sources
+### 📂 Sources
 
-Kernel: Samsung Galaxy A15 Kernel Source (SM-A155F)
-
-Device Tree: WIP (this repo)
-
-Vendor blobs: extracted from stock firmware
-
-
+- **Kernel:** [Samsung Galaxy A15 Kernel Source (SM-A155M)](https://opensource.samsung.com/uploadSearch?searchValue=A155M)
+- **Device Tree:** This repository (WIP)
+- **Vendor Blobs:** Extracted from stock firmware (One UI 7, Android 15)
 
 ---
 
-Notes
+### 🧩 Notes
 
-This tree is based on the SM-A155F kernel sources, adapted for SM-A155M (regional variant).
-
-Some features might require custom vendor blobs and patches.
-
-Contributions, bug reports, and testing are welcome.
-
-
+- Some hardware features may require custom vendor blobs and specific patches.
+- Contributions, testing, and bug reports are highly appreciated!
 
 ---
 
-Disclaimer
+### ⚠️ Disclaimer
 
-I am not responsible for bricked devices, dead SD cards, thermonuclear war,
-or you getting fired because the alarm app failed.
-Do some research if you have any concerns about features included in this device tree before flashing it!
-YOU are choosing to make these modifications, and if you point the finger at me for messing up your device, I will laugh at you.
-
+I am **not responsible** for bricked devices, dead SD cards, thermonuclear war,  
+or you getting fired because the alarm app failed.  
+Please **do your own research** before flashing or modifying your device.  
+YOU are choosing to make these modifications — if you blame me for messing up your device, I’ll laugh at you 😄
