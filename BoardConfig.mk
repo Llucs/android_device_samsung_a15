@@ -1,10 +1,6 @@
-#
-# Copyright (C) 2024 The Android Open Source Project
-#
-# SPDX-License-Identifier: Apache-2.0
-#
+# BoardConfig.mk (ajustado para Galaxy A15 SM-A155M - Helio G99)
+# Revise comentários antes de usar em build oficial
 
-# Architecture
 TARGET_ARCH := arm64
 TARGET_ARCH_VARIANT := armv8-2a-dotprod
 TARGET_CPU_ABI := arm64-v8a
@@ -32,12 +28,17 @@ TARGET_SCREEN_DENSITY := 440
 # Kernel
 BOARD_BOOTIMG_HEADER_VERSION := 2
 BOARD_KERNEL_PAGESIZE := 4096
+
+# --- ATENÇÃO: confirme esses valores com o stock boot.img do seu aparelho ---
 BOARD_KERNEL_BASE := 0x3fff8000
 BOARD_KERNEL_OFFSET := 0x00008000
 BOARD_RAMDISK_OFFSET := 0x26f08000
 BOARD_KERNEL_TAGS_OFFSET := 0x07c88000
 BOARD_DTB_OFFSET := 0x07c88000
 BOARD_BOOT_HEADER_VERSION := 4
+# --------------------------------------------------------------------------
+
+# DTB/DTBO
 BOARD_PREBUILT_DTBIMAGE_DIR := $(KERNEL_PATH)/dtb
 BOARD_INCLUDE_DTB_IN_BOOTIMG := true
 BOARD_PREBUILT_DTBOIMAGE := $(KERNEL_PATH)/dtbo.img
@@ -75,35 +76,35 @@ BOARD_SYSTEMIMAGE_FILE_SYSTEM_TYPE := ext4
 BOARD_SYSTEM_EXTIMAGE_FILE_SYSTEM_TYPE := ext4
 BOARD_VENDORIMAGE_FILE_SYSTEM_TYPE := ext4
 
-# Reserve space for gapps install
+# Reserve space for gapps install (ajuste se necessário)
 BOARD_SYSTEMIMAGE_PARTITION_RESERVED_SIZE := 200000000
 BOARD_SYSTEM_EXTIMAGE_PARTITION_RESERVED_SIZE := 92160000
 BOARD_PRODUCTIMAGE_PARTITION_RESERVED_SIZE := 614400000
 BOARD_VENDORIMAGE_PARTITION_RESERVED_SIZE := 81457280
 
-# Partitions Option
+# Filesystem types for userdata
 BOARD_USERDATAIMAGE_FILE_SYSTEM_TYPE := f2fs
+
+# Copy out targets (consistentes com device.mk)
 TARGET_COPY_OUT_VENDOR := vendor
 TARGET_COPY_OUT_SYSTEM_EXT := system_ext
 TARGET_COPY_OUT_PRODUCT := product
 
-# Partitions (Dynamic)
-BOARD_XIAOMI_DYNAMIC_PARTITIONS_SIZE := 9122611200
-BOARD_XIAOMI_DYNAMIC_PARTITIONS_PARTITION_LIST := system_ext product vendor system
+# Dynamic/Super partition (use valores reais do aparelho; aqui apenas um exemplo)
 BOARD_SUPER_PARTITION_SIZE := 9126805504
-BOARD_SUPER_PARTITION_GROUPS := xiaomi_dynamic_partitions
-
-BOARD_PARTITION_LIST := $(call to-upper, $(BOARD_XIAOMI_DYNAMIC_PARTITIONS_PARTITION_LIST))
-$(foreach p, $(BOARD_PARTITION_LIST), $(eval BOARD_$(p)IMAGE_FILE_SYSTEM_TYPE := ext4))
-$(foreach p, $(BOARD_PARTITION_LIST), $(eval TARGET_COPY_OUT_$(p) := $(call to-lower, $(p))))
+# Defina as partições que compõem a super; ajuste conforme stock
+BOARD_SUPER_PARTITION_GROUPS := dynamic_partitions
+BOARD_PARTITION_LIST := system_ext product vendor system
+$(foreach p, $(BOARD_PARTITION_LIST), $(eval BOARD_$(call to-upper,$(p))IMAGE_FILE_SYSTEM_TYPE := ext4))
+$(foreach p, $(BOARD_PARTITION_LIST), $(eval TARGET_COPY_OUT_$(call to-upper,$(p)) := $(call to-lower,$(p))))
 
 # Metadata
 BOARD_USES_METADATA_PARTITION := true
 
-# System as root
+# System as root helpers
 BOARD_SUPPRESS_SECURE_ERASE := true
 
-# Recovery
+# Recovery (ajuste se for compilar recovery)
 TARGET_RECOVERY_PIXEL_FORMAT := "RGBX_8888"
 TARGET_USERIMAGES_USE_EXT4 := true
 TARGET_USERIMAGES_USE_F2FS := true
@@ -112,11 +113,9 @@ BOARD_HAS_NO_BOOT_IMG := true
 BOARD_USES_RECOVERY_AS_BOOT := true
 BOARD_MOVE_RECOVERY_RESOURCES_TO_VENDOR_BOOT := true
 
-# TWRP
+# TWRP variables (remova se não for compilar TWRP)
 TW_THEME := portrait_hdpi
 RECOVERY_SDCARD_ON_DATA := true
-TARGET_RECOVERY_QCOM_RTC_FIX := true
-TARGET_RECOVERY_DEVICE_MODULES += 
 TW_BRIGHTNESS_PATH := "/sys/class/backlight/panel/brightness"
 TW_MAX_BRIGHTNESS := 2047
 TW_DEFAULT_BRIGHTNESS := 1200
@@ -134,7 +133,6 @@ TW_DEFAULT_LANGUAGE := pt_BR
 
 # A/B
 AB_OTA_UPDATER := true
-
 AB_OTA_PARTITIONS += \
     boot \
     dpm \
@@ -159,9 +157,10 @@ AB_OTA_PARTITIONS += \
     vendor \
     vendor_boot
 
-# Android Verified Boot
+# Android Verified Boot (AVB) - para testes está ON com chaves de teste; ajuste para release.
 BOARD_AVB_ENABLE := true
 BOARD_AVB_ALGORITHM := SHA256_RSA4096
+# Atenção: chaves de teste abaixo - troque ou desative para builds oficiais
 BOARD_AVB_KEY_PATH := external/avb/test/data/testkey_rsa4096.pem
 BOARD_AVB_MAKE_VBMETA_IMAGE_ARGS += --set_hashtree_disabled_flag
 
@@ -182,11 +181,11 @@ BOARD_AVB_VBMETA_VENDOR_ALGORITHM := SHA256_RSA4096
 BOARD_AVB_VBMETA_VENDOR_ROLLBACK_INDEX := 1
 BOARD_AVB_VBMETA_VENDOR_ROLLBACK_INDEX_LOCATION := 3
 
-# VINTF
+# VINTF / VNDK
 PRODUCT_FULL_TREBLE_OVERRIDE := true
 BOARD_VNDK_VERSION := current
 
-# Sepolicy
+# Sepolicy - confirme caminho
 include device/mediatek/sepolicy_vndr/SEPolicy.mk
 
 SYSTEM_EXT_PRIVATE_SEPOLICY_DIRS += $(DEVICE_PATH)/sepolicy/private
@@ -207,30 +206,18 @@ WIFI_DRIVER_STATE_OFF := "0"
 WIFI_HIDL_UNIFIED_SUPPLICANT_SERVICE_RC_ENTRY := true
 WIFI_HIDL_FEATURE_DUAL_INTERFACE := true
 
-# Inherit the proprietary files
+# Inherit the proprietary files (nome do vendor/device)
 TARGET_VENDOR_PRODUCT_NAME := a15
 TARGET_VENDOR_DEVICE_NAME := a15
 
-# LineageOS Specific
-TARGET_GAPPS_ARCH := arm64
-TARGET_INCLUDE_STOCK_AROMA_INSTALLER := false
-TARGET_USES_MINI_GAPPS := true
-TARGET_USES_FULL_GAPPS := false
-TARGET_USES_NANO_GAPPS := false
-TARGET_USES_MICRO_GAPPS := false
-TARGET_USES_PICO_GAPPS := false
-TARGET_USES_SMALL_GAPPS := false
-TARGET_USES_STOCK_GAPPS := false
-TARGET_USES_OPEN_GAPPS := true
-TARGET_ENABLE_AB_OTA := false
-TARGET_SUPPORTS_QUICK_BOOT := false
+# Kernel prebuilt - mantenha coerente com KERNEL_PATH
 TARGET_USES_PREBUILT_VENDOR_KERNEL := true
-TARGET_PREBUILT_KERNEL := device/samsung/a15/prebuilt/Image.gz-dtb
+TARGET_PREBUILT_KERNEL := $(KERNEL_PATH)/prebuilt/Image.gz-dtb
 
-# Enable F2FS Compression
+# Enable F2FS Compression (confirme se você quer isso)
 PRODUCT_FS_COMPRESSION := 1
 
-# Debugging
+# Debugging (TWRP extras)
 TWRP_INCLUDE_LOGCAT := true
 TWRP_INCLUDE_REPACKTOOLS := true
 TWRP_INCLUDE_RESETPROP := true
@@ -239,8 +226,7 @@ TWRP_INCLUDE_LIBRESETPROP := true
 TWRP_INCLUDE_LPT_DUMPER := true
 TWRP_INCLUDE_FASTBOOTD := true
 TWRP_RECOVERY_AFTER_MARKET := true
+
 DEVICE_PATH := device/samsung/a15
 TWRP_DEVICE_PATH := device/samsung/a15
 KERNEL_PATH := kernel/samsung/a15
-
-
