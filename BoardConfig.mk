@@ -1,4 +1,4 @@
-# BoardConfig.mk (ajustado para Galaxy A15 SM-A155M - Helio G99)
+# BoardConfig.mk (Galaxy A15 SM-A155M - Helio G99)
 # Revise comentários antes de usar em build oficial
 
 TARGET_ARCH := arm64
@@ -28,15 +28,19 @@ TARGET_SCREEN_DENSITY := 440
 # Kernel
 BOARD_BOOTIMG_HEADER_VERSION := 2
 BOARD_KERNEL_PAGESIZE := 4096
-
-# --- ATENÇÃO: confirme esses valores com o stock boot.img do seu aparelho ---
 BOARD_KERNEL_BASE := 0x3fff8000
 BOARD_KERNEL_OFFSET := 0x00008000
 BOARD_RAMDISK_OFFSET := 0x26f08000
 BOARD_KERNEL_TAGS_OFFSET := 0x07c88000
 BOARD_DTB_OFFSET := 0x07c88000
 BOARD_BOOT_HEADER_VERSION := 4
-# --------------------------------------------------------------------------
+
+# Kernel paths
+DEVICE_PATH := device/samsung/a15g99
+KERNEL_PATH := device/samsung/a15g99/kernel
+TARGET_KERNEL_SOURCE := $(KERNEL_PATH)/kernel-5.10
+TARGET_KERNEL_CONFIG := a15_defconfig
+TARGET_USES_PREBUILT_VENDOR_KERNEL := false
 
 # DTB/DTBO
 BOARD_PREBUILT_DTBIMAGE_DIR := $(KERNEL_PATH)/dtb
@@ -49,8 +53,6 @@ TARGET_NO_KERNEL_OVERRIDE := true
 BOARD_KERNEL_SEPARATED_DTBO := true
 TARGET_KERNEL_ARCH := arm64
 TARGET_KERNEL_HEADER_ARCH := arm64
-TARGET_KERNEL_SOURCE := kernel/samsung/a15
-TARGET_KERNEL_CONFIG := a15_defconfig
 
 # Kernel mkbootimg args
 BOARD_MKBOOTIMG_ARGS += --kernel_offset $(BOARD_KERNEL_OFFSET)
@@ -58,7 +60,6 @@ BOARD_MKBOOTIMG_ARGS += --ramdisk_offset $(BOARD_RAMDISK_OFFSET)
 BOARD_MKBOOTIMG_ARGS += --tags_offset $(BOARD_KERNEL_TAGS_OFFSET)
 BOARD_MKBOOTIMG_ARGS += --dtb_offset $(BOARD_DTB_OFFSET)
 BOARD_MKBOOTIMG_ARGS += --header_version $(BOARD_BOOT_HEADER_VERSION)
-
 
 # Platform
 TARGET_BOARD_PLATFORM := mt6789
@@ -69,14 +70,14 @@ BOARD_HAS_MTK_HARDWARE := true
 BOARD_FLASH_BLOCK_SIZE := 131072
 BOARD_BOOTIMAGE_PARTITION_SIZE := 67108864
 BOARD_CACHEIMAGE_PARTITION_SIZE := 136314880
-BOARD_DTBOIMG_PARTITION_SIZE := 8388608 
+BOARD_DTBOIMG_PARTITION_SIZE := 8388608
 BOARD_VENDOR_BOOTIMAGE_PARTITION_SIZE := 67108864
 BOARD_PRODUCTIMAGE_FILE_SYSTEM_TYPE := ext4
 BOARD_SYSTEMIMAGE_FILE_SYSTEM_TYPE := ext4
 BOARD_SYSTEM_EXTIMAGE_FILE_SYSTEM_TYPE := ext4
 BOARD_VENDORIMAGE_FILE_SYSTEM_TYPE := ext4
 
-# Reserve space for gapps install (ajuste se necessário)
+# Reserve space for gapps install
 BOARD_SYSTEMIMAGE_PARTITION_RESERVED_SIZE := 200000000
 BOARD_SYSTEM_EXTIMAGE_PARTITION_RESERVED_SIZE := 92160000
 BOARD_PRODUCTIMAGE_PARTITION_RESERVED_SIZE := 614400000
@@ -85,14 +86,13 @@ BOARD_VENDORIMAGE_PARTITION_RESERVED_SIZE := 81457280
 # Filesystem types for userdata
 BOARD_USERDATAIMAGE_FILE_SYSTEM_TYPE := f2fs
 
-# Copy out targets (consistentes com device.mk)
+# Copy out targets
 TARGET_COPY_OUT_VENDOR := vendor
 TARGET_COPY_OUT_SYSTEM_EXT := system_ext
 TARGET_COPY_OUT_PRODUCT := product
 
-# Dynamic/Super partition (use valores reais do aparelho; aqui apenas um exemplo)
+# Dynamic/Super partition
 BOARD_SUPER_PARTITION_SIZE := 9126805504
-# Defina as partições que compõem a super; ajuste conforme stock
 BOARD_SUPER_PARTITION_GROUPS := dynamic_partitions
 BOARD_PARTITION_LIST := system_ext product vendor system
 $(foreach p, $(BOARD_PARTITION_LIST), $(eval BOARD_$(call to-upper,$(p))IMAGE_FILE_SYSTEM_TYPE := ext4))
@@ -104,7 +104,7 @@ BOARD_USES_METADATA_PARTITION := true
 # System as root helpers
 BOARD_SUPPRESS_SECURE_ERASE := true
 
-# Recovery (ajuste se for compilar recovery)
+# Recovery
 TARGET_RECOVERY_PIXEL_FORMAT := "RGBX_8888"
 TARGET_USERIMAGES_USE_EXT4 := true
 TARGET_USERIMAGES_USE_F2FS := true
@@ -113,7 +113,7 @@ BOARD_HAS_NO_BOOT_IMG := true
 BOARD_USES_RECOVERY_AS_BOOT := true
 BOARD_MOVE_RECOVERY_RESOURCES_TO_VENDOR_BOOT := true
 
-# TWRP variables (remova se não for compilar TWRP)
+# TWRP variables
 TW_THEME := portrait_hdpi
 RECOVERY_SDCARD_ON_DATA := true
 TW_BRIGHTNESS_PATH := "/sys/class/backlight/panel/brightness"
@@ -157,10 +157,9 @@ AB_OTA_PARTITIONS += \
     vendor \
     vendor_boot
 
-# Android Verified Boot (AVB) - para testes está ON com chaves de teste; ajuste para release.
+# Android Verified Boot (AVB)
 BOARD_AVB_ENABLE := true
 BOARD_AVB_ALGORITHM := SHA256_RSA4096
-# Atenção: chaves de teste abaixo - troque ou desative para builds oficiais
 BOARD_AVB_KEY_PATH := external/avb/test/data/testkey_rsa4096.pem
 BOARD_AVB_MAKE_VBMETA_IMAGE_ARGS += --set_hashtree_disabled_flag
 
@@ -185,9 +184,8 @@ BOARD_AVB_VBMETA_VENDOR_ROLLBACK_INDEX_LOCATION := 3
 PRODUCT_FULL_TREBLE_OVERRIDE := true
 BOARD_VNDK_VERSION := current
 
-# Sepolicy - confirme caminho
+# Sepolicy
 include device/mediatek/sepolicy_vndr/SEPolicy.mk
-
 SYSTEM_EXT_PRIVATE_SEPOLICY_DIRS += $(DEVICE_PATH)/sepolicy/private
 SYSTEM_EXT_PUBLIC_SEPOLICY_DIRS += $(DEVICE_PATH)/sepolicy/public
 BOARD_VENDOR_SEPOLICY_DIRS += $(DEVICE_PATH)/sepolicy/vendor
@@ -206,15 +204,14 @@ WIFI_DRIVER_STATE_OFF := "0"
 WIFI_HIDL_UNIFIED_SUPPLICANT_SERVICE_RC_ENTRY := true
 WIFI_HIDL_FEATURE_DUAL_INTERFACE := true
 
-# Inherit the proprietary files (nome do vendor/device)
+# Inherit proprietary files
 TARGET_VENDOR_PRODUCT_NAME := a15
 TARGET_VENDOR_DEVICE_NAME := a15
 
-# Kernel prebuilt - mantenha coerente com KERNEL_PATH
-TARGET_USES_PREBUILT_VENDOR_KERNEL := true
+# Kernel prebuilt fallback
 TARGET_PREBUILT_KERNEL := $(KERNEL_PATH)/prebuilt/Image.gz-dtb
 
-# Enable F2FS Compression (confirme se você quer isso)
+# Enable F2FS Compression
 PRODUCT_FS_COMPRESSION := 1
 
 # Debugging (TWRP extras)
@@ -226,7 +223,3 @@ TWRP_INCLUDE_LIBRESETPROP := true
 TWRP_INCLUDE_LPT_DUMPER := true
 TWRP_INCLUDE_FASTBOOTD := true
 TWRP_RECOVERY_AFTER_MARKET := true
-
-DEVICE_PATH := device/samsung/a15
-TWRP_DEVICE_PATH := device/samsung/a15
-KERNEL_PATH := kernel/samsung/a15
