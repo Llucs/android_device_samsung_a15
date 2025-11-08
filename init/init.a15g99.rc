@@ -1,0 +1,4 @@
+on boot
+    # Iniciar serviços básicos
+    start servicemanager
+    start zygote

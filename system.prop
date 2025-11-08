@@ -1,10 +1,10 @@
 # System properties for a15
-ro.product.board=a15
-ro.product.device=a15
-ro.product.name=a15
-ro.vendor.product.device=a15
-ro.vendor.product.name=a15
-ro.vendor.product.board=a15
+ro.product.board=a15g99
+ro.product.device=a15g99
+ro.product.name=crdroid_a15g99
+ro.vendor.product.device=a15g99
+ro.vendor.product.name=crdroid_a15g99
+ro.vendor.product.board=a15g99
 
 # MediaTek specific properties
 ro.hardware.chipname=MT6789
