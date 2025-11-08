@@ -26,25 +26,25 @@ TARGET_NO_BOOTLOADER := true
 TARGET_SCREEN_DENSITY := 440
 
 # -----------------------------------------------------
-# Kernel (pré-compilado)
+# Kernel (Source Tree)
 # -----------------------------------------------------
 DEVICE_PATH := device/samsung/a15g99
 KERNEL_PATH := $(DEVICE_PATH)/kernel
 
-TARGET_PREBUILT_KERNEL := $(KERNEL_PATH)/prebuilt/Image.gz-dtb
+TARGET_KERNEL_SOURCE := device/samsung/a15g99/kernel/kernel-5.10
 TARGET_KERNEL_ARCH := arm64
 TARGET_KERNEL_HEADER_ARCH := arm64
-TARGET_USES_PREBUILT_VENDOR_KERNEL := true
-TARGET_NO_KERNEL_OVERRIDE := true
+TARGET_KERNEL_CONFIG := a15_defconfig
+TARGET_KERNEL_CLANG_VERSION := 17
 
 BOARD_BOOTIMG_HEADER_VERSION := 4
 BOARD_KERNEL_BASE := 0x3fff8000
 BOARD_KERNEL_PAGESIZE := 4096
 BOARD_KERNEL_CMDLINE += bootopt=64S3,32N2,64N2
 BOARD_INCLUDE_DTB_IN_BOOTIMG := true
+BOARD_KERNEL_IMAGE_NAME := Image.gz-dtb
+BOARD_KERNEL_SEPARATED_DTBO := false
 BOARD_PREBUILT_DTBOIMAGE := $(KERNEL_PATH)/dtbo.img
-BOARD_PREBUILT_DTBIMAGE_DIR := $(KERNEL_PATH)/dtb
-BOARD_KERNEL_SEPARATED_DTBO := true
 BOARD_RAMDISK_USE_LZ4 := true
 
 # -----------------------------------------------------
