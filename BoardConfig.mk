@@ -1,163 +1,122 @@
 # BoardConfig.mk (Galaxy A15 SM-A155M - Helio G99)
-# Revise comentários antes de usar em build oficial
 
+# -----------------------------------------------------
+# CPU / Arquitetura
+# -----------------------------------------------------
 TARGET_ARCH := arm64
 TARGET_ARCH_VARIANT := armv8-2a-dotprod
 TARGET_CPU_ABI := arm64-v8a
-TARGET_CPU_ABI2 :=
 TARGET_CPU_VARIANT := cortex-a76
 TARGET_CPU_VARIANT_RUNTIME := cortex-a76
 
 TARGET_2ND_ARCH := arm
 TARGET_2ND_ARCH_VARIANT := armv8-2a
 TARGET_2ND_CPU_ABI := armeabi-v7a
-TARGET_2ND_CPU_ABI2 := armeabi
 TARGET_2ND_CPU_VARIANT := cortex-a55
 TARGET_2ND_CPU_VARIANT_RUNTIME := cortex-a55
 
 ENABLE_CPUSETS := true
 ENABLE_SCHEDBOOST := true
 
-# Bootloader
+# -----------------------------------------------------
+# Bootloader / Display
+# -----------------------------------------------------
 TARGET_BOOTLOADER_BOARD_NAME := a15
 TARGET_NO_BOOTLOADER := true
-
-# Display
 TARGET_SCREEN_DENSITY := 440
 
-# Kernel
-BOARD_BOOTIMG_HEADER_VERSION := 2
-BOARD_KERNEL_PAGESIZE := 4096
-BOARD_KERNEL_BASE := 0x3fff8000
-BOARD_KERNEL_OFFSET := 0x00008000
-BOARD_RAMDISK_OFFSET := 0x26f08000
-BOARD_KERNEL_TAGS_OFFSET := 0x07c88000
-BOARD_DTB_OFFSET := 0x07c88000
-BOARD_BOOT_HEADER_VERSION := 4
-
-# Kernel paths
+# -----------------------------------------------------
+# Kernel (pré-compilado)
+# -----------------------------------------------------
 DEVICE_PATH := device/samsung/a15g99
-KERNEL_PATH := device/samsung/a15g99/kernel
-TARGET_KERNEL_SOURCE := $(KERNEL_PATH)/kernel-5.10
-TARGET_KERNEL_CONFIG := a15_defconfig
-TARGET_USES_PREBUILT_VENDOR_KERNEL := false
+KERNEL_PATH := $(DEVICE_PATH)/kernel
 
-# DTB/DTBO
-BOARD_PREBUILT_DTBIMAGE_DIR := $(KERNEL_PATH)/dtb
-BOARD_INCLUDE_DTB_IN_BOOTIMG := true
-BOARD_PREBUILT_DTBOIMAGE := $(KERNEL_PATH)/dtbo.img
-BOARD_KERNEL_CMDLINE += bootopt=64S3,32N2,64N2
-BOARD_RAMDISK_USE_LZ4 := true
-BOARD_USES_GENERIC_KERNEL_IMAGE := true
-TARGET_NO_KERNEL_OVERRIDE := true
-BOARD_KERNEL_SEPARATED_DTBO := true
+TARGET_PREBUILT_KERNEL := $(KERNEL_PATH)/prebuilt/Image.gz-dtb
 TARGET_KERNEL_ARCH := arm64
 TARGET_KERNEL_HEADER_ARCH := arm64
+TARGET_USES_PREBUILT_VENDOR_KERNEL := true
+TARGET_NO_KERNEL_OVERRIDE := true
 
-# Kernel mkbootimg args
-BOARD_MKBOOTIMG_ARGS += --kernel_offset $(BOARD_KERNEL_OFFSET)
-BOARD_MKBOOTIMG_ARGS += --ramdisk_offset $(BOARD_RAMDISK_OFFSET)
-BOARD_MKBOOTIMG_ARGS += --tags_offset $(BOARD_KERNEL_TAGS_OFFSET)
-BOARD_MKBOOTIMG_ARGS += --dtb_offset $(BOARD_DTB_OFFSET)
-BOARD_MKBOOTIMG_ARGS += --header_version $(BOARD_BOOT_HEADER_VERSION)
+BOARD_BOOTIMG_HEADER_VERSION := 4
+BOARD_KERNEL_BASE := 0x3fff8000
+BOARD_KERNEL_PAGESIZE := 4096
+BOARD_KERNEL_CMDLINE += bootopt=64S3,32N2,64N2
+BOARD_INCLUDE_DTB_IN_BOOTIMG := true
+BOARD_PREBUILT_DTBOIMAGE := $(KERNEL_PATH)/dtbo.img
+BOARD_PREBUILT_DTBIMAGE_DIR := $(KERNEL_PATH)/dtb
+BOARD_KERNEL_SEPARATED_DTBO := true
+BOARD_RAMDISK_USE_LZ4 := true
 
+# -----------------------------------------------------
 # Platform
+# -----------------------------------------------------
 TARGET_BOARD_PLATFORM := mt6789
 BOARD_USES_MTK_HARDWARE := true
 BOARD_HAS_MTK_HARDWARE := true
 
-# Partitions
+# -----------------------------------------------------
+# Partições
+# -----------------------------------------------------
 BOARD_FLASH_BLOCK_SIZE := 131072
 BOARD_BOOTIMAGE_PARTITION_SIZE := 67108864
-BOARD_CACHEIMAGE_PARTITION_SIZE := 136314880
-BOARD_DTBOIMG_PARTITION_SIZE := 8388608
 BOARD_VENDOR_BOOTIMAGE_PARTITION_SIZE := 67108864
-BOARD_PRODUCTIMAGE_FILE_SYSTEM_TYPE := ext4
-BOARD_SYSTEMIMAGE_FILE_SYSTEM_TYPE := ext4
-BOARD_SYSTEM_EXTIMAGE_FILE_SYSTEM_TYPE := ext4
-BOARD_VENDORIMAGE_FILE_SYSTEM_TYPE := ext4
+BOARD_DTBOIMG_PARTITION_SIZE := 8388608
 
-# Reserve space for gapps install
+BOARD_SYSTEMIMAGE_FILE_SYSTEM_TYPE := ext4
+BOARD_VENDORIMAGE_FILE_SYSTEM_TYPE := ext4
+BOARD_SYSTEM_EXTIMAGE_FILE_SYSTEM_TYPE := ext4
+BOARD_PRODUCTIMAGE_FILE_SYSTEM_TYPE := ext4
+
+BOARD_USERDATAIMAGE_FILE_SYSTEM_TYPE := f2fs
+
 BOARD_SYSTEMIMAGE_PARTITION_RESERVED_SIZE := 200000000
 BOARD_SYSTEM_EXTIMAGE_PARTITION_RESERVED_SIZE := 92160000
 BOARD_PRODUCTIMAGE_PARTITION_RESERVED_SIZE := 614400000
 BOARD_VENDORIMAGE_PARTITION_RESERVED_SIZE := 81457280
 
-# Filesystem types for userdata
-BOARD_USERDATAIMAGE_FILE_SYSTEM_TYPE := f2fs
-
-# Copy out targets
 TARGET_COPY_OUT_VENDOR := vendor
 TARGET_COPY_OUT_SYSTEM_EXT := system_ext
 TARGET_COPY_OUT_PRODUCT := product
 
-# Dynamic/Super partition
+# -----------------------------------------------------
+# Super / Dynamic
+# -----------------------------------------------------
 BOARD_SUPER_PARTITION_SIZE := 9126805504
 BOARD_SUPER_PARTITION_GROUPS := dynamic_partitions
-BOARD_PARTITION_LIST := system_ext product vendor system
+BOARD_PARTITION_LIST := system system_ext vendor product
 $(foreach p, $(BOARD_PARTITION_LIST), $(eval BOARD_$(call to-upper,$(p))IMAGE_FILE_SYSTEM_TYPE := ext4))
 $(foreach p, $(BOARD_PARTITION_LIST), $(eval TARGET_COPY_OUT_$(call to-upper,$(p)) := $(call to-lower,$(p))))
 
-# Metadata
 BOARD_USES_METADATA_PARTITION := true
 
-# System as root helpers
-BOARD_SUPPRESS_SECURE_ERASE := true
-
-# Recovery
-TARGET_RECOVERY_PIXEL_FORMAT := "RGBX_8888"
+# -----------------------------------------------------
+# Recovery (somente o essencial)
+# -----------------------------------------------------
 TARGET_USERIMAGES_USE_EXT4 := true
 TARGET_USERIMAGES_USE_F2FS := true
-BOARD_HAS_NO_SELECT_BUTTON := true
-BOARD_HAS_NO_BOOT_IMG := true
-BOARD_USES_RECOVERY_AS_BOOT := true
-BOARD_MOVE_RECOVERY_RESOURCES_TO_VENDOR_BOOT := true
+TARGET_RECOVERY_PIXEL_FORMAT := "RGBX_8888"
+BOARD_HAS_NO_BOOT_IMG := false
+BOARD_USES_RECOVERY_AS_BOOT := false
 
-# TWRP variables
-TW_THEME := portrait_hdpi
-RECOVERY_SDCARD_ON_DATA := true
-TW_BRIGHTNESS_PATH := "/sys/class/backlight/panel/brightness"
-TW_MAX_BRIGHTNESS := 2047
-TW_DEFAULT_BRIGHTNESS := 1200
-TW_SCREEN_BLANK_ON_BOOT := true
-TW_INPUT_BLACKLIST := "hbtp_vm"
-TW_USE_TOOLBOX := true
-TW_NO_SCREEN_BLANK := true
-TW_EXCLUDE_DEFAULT_USB_INIT := true
-TW_EXTRA_LANGUAGES := true
-TW_OVERRIDE_VERSION_CHECK := true
-TW_HAS_MTP := true
-TW_INCLUDE_NTFS_3G := true
-TW_USE_MODEL_INFO_FOR_DEVICE_ID := true
-TW_DEFAULT_LANGUAGE := pt_BR
-
-# A/B
+# -----------------------------------------------------
+# A/B OTA
+# -----------------------------------------------------
 AB_OTA_UPDATER := true
 AB_OTA_PARTITIONS += \
     boot \
-    dpm \
     dtbo \
-    gz \
-    lk \
-    logo \
-    mcupm \
-    md1img \
-    pi_img \
-    preloader_raw \
     product \
-    scp \
-    spmfw \
-    sspm \
     system \
     system_ext \
-    tee \
+    vendor \
+    vendor_boot \
     vbmeta \
     vbmeta_system \
-    vbmeta_vendor \
-    vendor \
-    vendor_boot
+    vbmeta_vendor
 
-# Android Verified Boot (AVB)
+# -----------------------------------------------------
+# Verified Boot (AVB)
+# -----------------------------------------------------
 BOARD_AVB_ENABLE := true
 BOARD_AVB_ALGORITHM := SHA256_RSA4096
 BOARD_AVB_KEY_PATH := external/avb/test/data/testkey_rsa4096.pem
@@ -165,35 +124,38 @@ BOARD_AVB_MAKE_VBMETA_IMAGE_ARGS += --set_hashtree_disabled_flag
 
 BOARD_AVB_BOOT_KEY_PATH := external/avb/test/data/testkey_rsa4096.pem
 BOARD_AVB_BOOT_ALGORITHM := SHA256_RSA4096
-BOARD_AVB_BOOT_ROLLBACK_INDEX := 1
-BOARD_AVB_BOOT_ROLLBACK_INDEX_LOCATION := 1
 
 BOARD_AVB_VBMETA_SYSTEM := product system system_ext
 BOARD_AVB_VBMETA_SYSTEM_KEY_PATH := external/avb/test/data/testkey_rsa4096.pem
 BOARD_AVB_VBMETA_SYSTEM_ALGORITHM := SHA256_RSA4096
-BOARD_AVB_VBMETA_SYSTEM_ROLLBACK_INDEX := 1
-BOARD_AVB_VBMETA_SYSTEM_ROLLBACK_INDEX_LOCATION := 2
 
 BOARD_AVB_VBMETA_VENDOR := vendor
 BOARD_AVB_VBMETA_VENDOR_KEY_PATH := external/avb/test/data/testkey_rsa4096.pem
 BOARD_AVB_VBMETA_VENDOR_ALGORITHM := SHA256_RSA4096
-BOARD_AVB_VBMETA_VENDOR_ROLLBACK_INDEX := 1
-BOARD_AVB_VBMETA_VENDOR_ROLLBACK_INDEX_LOCATION := 3
 
-# VINTF / VNDK
+# -----------------------------------------------------
+# VNDK / Treble
+# -----------------------------------------------------
 PRODUCT_FULL_TREBLE_OVERRIDE := true
 BOARD_VNDK_VERSION := current
 
-# Sepolicy
-include device/mediatek/sepolicy_vndr/SEPolicy.mk
+# -----------------------------------------------------
+# SEPolicy
+# -----------------------------------------------------
+# (descomente abaixo se tiver o repositório sepolicy_vndr)
+# include device/mediatek/sepolicy_vndr/SEPolicy.mk
+
 SYSTEM_EXT_PRIVATE_SEPOLICY_DIRS += $(DEVICE_PATH)/sepolicy/private
 SYSTEM_EXT_PUBLIC_SEPOLICY_DIRS += $(DEVICE_PATH)/sepolicy/public
 BOARD_VENDOR_SEPOLICY_DIRS += $(DEVICE_PATH)/sepolicy/vendor
 
+# -----------------------------------------------------
 # Wi-Fi
+# -----------------------------------------------------
 WPA_SUPPLICANT_VERSION := VER_0_8_X
 BOARD_WPA_SUPPLICANT_DRIVER := NL80211
 BOARD_HOSTAPD_DRIVER := NL80211
+
 WIFI_DRIVER_FW_PATH_PARAM := "/dev/wmtWifi"
 WIFI_DRIVER_FW_PATH_STA := "STA"
 WIFI_DRIVER_FW_PATH_AP := "AP"
@@ -204,22 +166,14 @@ WIFI_DRIVER_STATE_OFF := "0"
 WIFI_HIDL_UNIFIED_SUPPLICANT_SERVICE_RC_ENTRY := true
 WIFI_HIDL_FEATURE_DUAL_INTERFACE := true
 
-# Inherit proprietary files
+# -----------------------------------------------------
+# Identificadores / Vendor
+# -----------------------------------------------------
 TARGET_VENDOR_PRODUCT_NAME := a15
 TARGET_VENDOR_DEVICE_NAME := a15
 
-# Kernel prebuilt fallback
-TARGET_PREBUILT_KERNEL := $(KERNEL_PATH)/prebuilt/Image.gz-dtb
-
-# Enable F2FS Compression
+# -----------------------------------------------------
+# F2FS Compression e depuração
+# -----------------------------------------------------
 PRODUCT_FS_COMPRESSION := 1
-
-# Debugging (TWRP extras)
-TWRP_INCLUDE_LOGCAT := true
-TWRP_INCLUDE_REPACKTOOLS := true
-TWRP_INCLUDE_RESETPROP := true
-TWRP_INCLUDE_BLOBPACK := true
-TWRP_INCLUDE_LIBRESETPROP := true
-TWRP_INCLUDE_LPT_DUMPER := true
-TWRP_INCLUDE_FASTBOOTD := true
-TWRP_RECOVERY_AFTER_MARKET := true
+BOARD_SUPPRESS_SECURE_ERASE := true
