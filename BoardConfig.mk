@@ -28,10 +28,10 @@ TARGET_SCREEN_DENSITY := 440
 # -----------------------------------------------------
 # Kernel (Source Tree)
 # -----------------------------------------------------
-DEVICE_PATH := device/samsung/a15g99
+DEVICE_PATH := device/samsung/a15
 KERNEL_PATH := $(DEVICE_PATH)/kernel
 
-TARGET_KERNEL_SOURCE := device/samsung/a15g99/kernel/kernel-5.10
+TARGET_KERNEL_SOURCE := device/samsung/a15/kernel/kernel-5.10
 TARGET_KERNEL_ARCH := arm64
 TARGET_KERNEL_HEADER_ARCH := arm64
 TARGET_KERNEL_CONFIG := a15_defconfig

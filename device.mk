@@ -5,7 +5,7 @@
 #
 
 # Inherit from the proprietary vendor files.
-$(call inherit-product, vendor/samsung/a15g99/a15g99-vendor.mk)
+$(call inherit-product, vendor/samsung/a15/a15-vendor.mk)
 
 # Include device-specific system properties
 $(call inherit-product-if-exists, $(LOCAL_PATH)/system.prop)
@@ -68,4 +68,4 @@ PRODUCT_PACKAGES += \
 
 # Init
 PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/init/init.a15g99.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/init.a15g99.rc
+    $(LOCAL_PATH)/init/init.a15.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/init.a15.rc
