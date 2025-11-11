@@ -5,6 +5,7 @@ ro.product.name=a15
 ro.vendor.product.device=a15
 ro.vendor.product.name=a15
 ro.vendor.product.board=a15
+ro.product.manufacturer=samsung
 
 # MediaTek specific properties
 ro.hardware.chipname=MT6789
