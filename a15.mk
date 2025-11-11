@@ -7,19 +7,11 @@
 # Inherit from the base device configuration
 $(call inherit-product, device/samsung/a15/device.mk)
 
-# Inherit common crDroid configuration
-$(call inherit-product, vendor/crdroid/config/common.mk)
-
 # Device identifiers
-PRODUCT_NAME := crdroid_a15
+PRODUCT_NAME := a15
 PRODUCT_DEVICE := a15
 PRODUCT_BRAND := samsung
 PRODUCT_MODEL := SM-A155M
 PRODUCT_MANUFACTURER := samsung
 
 PRODUCT_GMS_CLIENTID_BASE := android-samsung
-
-# crDroid specific overrides
-CRDROID_BUILD_TYPE := OFFICIAL
-CRDROID_RELEASE := true
-CRDROID_MAINTAINER := Llucs
