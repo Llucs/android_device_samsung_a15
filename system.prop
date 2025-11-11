@@ -1,9 +1,9 @@
 # System properties for a15
 ro.product.board=a15
 ro.product.device=a15
-ro.product.name=crdroid_a15
+ro.product.name=a15
 ro.vendor.product.device=a15
-ro.vendor.product.name=crdroid_a15
+ro.vendor.product.name=a15
 ro.vendor.product.board=a15
 
 # MediaTek specific properties
