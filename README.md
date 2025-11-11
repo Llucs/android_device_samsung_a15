@@ -1,9 +1,6 @@
 ## Device Tree for Samsung Galaxy A15 4G (SM-A155M)
 
-⚠️ **Work In Progress (WIP)** ⚠️  
-This device tree is currently under active development.  
-Expect bugs, missing features, and possible instability.  
-Do not use it as a daily driver unless you know exactly what you’re doing.
+⚠️ The Device Tree is theoretically functional, but it hasn't been tested yet, so be aware of the risk of the Device Tree creating a faulty ROM or causing compilation errors.
 
 ---
 
