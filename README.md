@@ -1,13 +1,20 @@
-## Device Tree for Samsung Galaxy A15 4G (SM-A155M)
+# Device Tree for Samsung Galaxy A15 4G (SM-A155M)
 
-⚠️ The Device Tree is theoretically functional, but it hasn't been tested yet, so be aware of the risk of the Device Tree creating a faulty ROM or causing compilation errors.
+![Status](https://img.shields.io/badge/status-complete-blue)
+![Build](https://img.shields.io/badge/build-untested-red)
+![Device](https://img.shields.io/badge/device-Galaxy%20A15%204G-blue)
+![Model](https://img.shields.io/badge/model-SM--A155M-lightgrey)
+![Android](https://img.shields.io/badge/Android-15-informational)
+![crDroid](https://img.shields.io/badge/crDroid-supported-blue)
+![Kernel](https://img.shields.io/badge/kernel-Helio%20G99-yellow)
+![License](https://img.shields.io/badge/license-Apache%202.0-green)
 
 ---
 
 ### 📂 Sources
 
 - **Kernel:** [Samsung Galaxy A15 Kernel Source (SM-A155M)](https://opensource.samsung.com/uploadSearch?searchValue=A155M)
-- **Device Tree:** This repository (WIP)
+- **Device Tree:** This repository
 - **Vendor Blobs:** Extracted from stock firmware (One UI 7, Android 15)
 
 ---
