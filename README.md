@@ -11,7 +11,7 @@
 
 ---
 
-### 📂 Sources
+### Sources
 
 - **Kernel:** [Samsung Galaxy A15 Kernel Source (SM-A155M)](https://opensource.samsung.com/uploadSearch?searchValue=A155M)
 - **Device Tree:** This repository
@@ -19,14 +19,14 @@
 
 ---
 
-### 🧩 Notes
+### Notes
 
 - Some hardware features may require custom vendor blobs and specific patches.
 - Contributions, testing, and bug reports are highly appreciated!
 
 ---
 
-### ⚠️ Disclaimer
+### Disclaimer
 
 I am **not responsible** for bricked devices, dead SD cards, thermonuclear war,  
 or you getting fired because the alarm app failed.  
