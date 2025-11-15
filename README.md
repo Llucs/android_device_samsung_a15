@@ -14,7 +14,7 @@
 ### 📂 Sources
 
 - **Kernel:** [Samsung Galaxy A15 Kernel Source (SM-A155M)](https://opensource.samsung.com/uploadSearch?searchValue=A155M)
-- **Device Tree:** This repository (WIP)
+- **Device Tree:** This repository
 - **Vendor Blobs:** Extracted from stock firmware (One UI 7, Android 15)
 
 ---
