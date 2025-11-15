@@ -28,7 +28,6 @@
 
 ### Disclaimer
 > [!CAUTION]
-
 > I am **not responsible** for bricked devices, dead SD cards, thermonuclear war,  
 or you getting fired because the alarm app failed.  
 Please **do your own research** before flashing or modifying your device.  
