@@ -27,8 +27,9 @@
 ---
 
 ### Disclaimer
+> [!CAUTION]
 
-I am **not responsible** for bricked devices, dead SD cards, thermonuclear war,  
+> I am **not responsible** for bricked devices, dead SD cards, thermonuclear war,  
 or you getting fired because the alarm app failed.  
 Please **do your own research** before flashing or modifying your device.  
 YOU are choosing to make these modifications — if you blame me for messing up your device, I’ll laugh at you 😄
