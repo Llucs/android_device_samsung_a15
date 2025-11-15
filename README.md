@@ -1,6 +1,6 @@
 # Device Tree for Samsung Galaxy A15 4G (SM-A155M)
 
-![Status](https://img.shields.io/badge/status-WIP-orange)
+![Status](https://img.shields.io/badge/status-complete-blue)
 ![Build](https://img.shields.io/badge/build-untested-red)
 ![Device](https://img.shields.io/badge/device-Galaxy%20A15%204G-blue)
 ![Model](https://img.shields.io/badge/model-SM--A155M-lightgrey)
