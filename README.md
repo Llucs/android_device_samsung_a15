@@ -26,6 +26,11 @@
 
 ---
 
+### Device Image
+
+![Device](device.jpg)
+
+---
 ### Disclaimer
 > [!CAUTION]
 > I am **not responsible** for bricked devices, dead SD cards, thermonuclear war,  
