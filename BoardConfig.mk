@@ -37,16 +37,14 @@ TARGET_KERNEL_HEADER_ARCH := arm64
 TARGET_KERNEL_CONFIG := a15_defconfig
 TARGET_KERNEL_CLANG_VERSION := 17
 
-# MediaTek normalmente usa Image.gz e DTBs separados
+# MediaTek usa Image.gz
 BOARD_KERNEL_IMAGE_NAME := Image.gz
-BOARD_INCLUDE_DTB_IN_BOOTIMG := false
 
-# dtbo separado (gera pelo kernel)
-BOARD_KERNEL_SEPARATED_DTBO := true
-# não apontar para um prebuilt, pois vamos gerar o dtbo do source
-BOARD_PREBUILT_DTBOIMAGE :=
+# (REMOVIDO – só funciona com kernel prebuilt)
+# BOARD_INCLUDE_DTB_IN_BOOTIMG := false
+# BOARD_KERNEL_SEPARATED_DTBO := true
+# BOARD_PREBUILT_DTBOIMAGE :=
 
-# base/paging/cmdline (mantive os seus valores)
 BOARD_BOOTIMG_HEADER_VERSION := 3
 BOARD_KERNEL_BASE := 0x3fff8000
 BOARD_KERNEL_PAGESIZE := 4096
@@ -97,7 +95,7 @@ $(foreach p, $(BOARD_PARTITION_LIST), $(eval TARGET_COPY_OUT_$(call to-upper,$(p
 BOARD_USES_METADATA_PARTITION := true
 
 # -----------------------------------------------------
-# Recovery (somente o essencial)
+# Recovery
 # -----------------------------------------------------
 TARGET_USERIMAGES_USE_EXT4 := true
 TARGET_USERIMAGES_USE_F2FS := true
@@ -122,11 +120,9 @@ AB_OTA_PARTITIONS += \
     vbmeta_vendor
 
 # -----------------------------------------------------
-# Verified Boot (AVB) - temporarily disabled for testing
+# Verified Boot (AVB)
 # -----------------------------------------------------
 BOARD_AVB_ENABLE := false
-
-# Desativa verificação de hashtree
 BOARD_AVB_MAKE_VBMETA_IMAGE_ARGS += --set_hashtree_disabled_flag
 
 # -----------------------------------------------------
@@ -138,9 +134,6 @@ BOARD_VNDK_VERSION := current
 # -----------------------------------------------------
 # SEPolicy
 # -----------------------------------------------------
-# (descomente abaixo se tiver o repositório sepolicy_vndr)
-# include device/mediatek/sepolicy_vndr/SEPolicy.mk
-
 SYSTEM_EXT_PRIVATE_SEPOLICY_DIRS += $(DEVICE_PATH)/sepolicy/private
 SYSTEM_EXT_PUBLIC_SEPOLICY_DIRS += $(DEVICE_PATH)/sepolicy/public
 BOARD_VENDOR_SEPOLICY_DIRS += $(DEVICE_PATH)/sepolicy/vendor
@@ -163,13 +156,13 @@ WIFI_HIDL_UNIFIED_SUPPLICANT_SERVICE_RC_ENTRY := true
 WIFI_HIDL_FEATURE_DUAL_INTERFACE := true
 
 # -----------------------------------------------------
-# Identificadores / Vendor
+# Identificadores
 # -----------------------------------------------------
 TARGET_VENDOR_PRODUCT_NAME := a15
 TARGET_VENDOR_DEVICE_NAME := a15
 
 # -----------------------------------------------------
-# F2FS Compression e depuração
+# F2FS Compression
 # -----------------------------------------------------
 PRODUCT_FS_COMPRESSION := 1
 BOARD_SUPPRESS_SECURE_ERASE := true
