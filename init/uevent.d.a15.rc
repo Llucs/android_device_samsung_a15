@@ -1,0 +1,15 @@
+/dev/block/by-name/*       0660   root   system
+/dev/tee1                  0660   root   system
+/dev/nvram                 0660   root   system
+/dev/misc                  0660   root   system
+/dev/uh                    0660   root   system
+/dev/proinfo               0660   root   system
+/dev/keyrefuge             0660   root   system
+/dev/keydata               0660   root   system
+
+# WiFi MTK
+/dev/wmtWifi               0660   wifi   wifi
+/dev/connsys_*             0660   wifi   wifi
+
+# Vibrator / input
+/dev/input/*               0660   root   input
