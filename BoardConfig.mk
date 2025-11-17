@@ -37,14 +37,20 @@ TARGET_KERNEL_HEADER_ARCH := arm64
 TARGET_KERNEL_CONFIG := a15_defconfig
 TARGET_KERNEL_CLANG_VERSION := 17
 
-BOARD_BOOTIMG_HEADER_VERSION := 4
+# MediaTek normalmente usa Image.gz e DTBs separados
+BOARD_KERNEL_IMAGE_NAME := Image.gz
+BOARD_INCLUDE_DTB_IN_BOOTIMG := false
+
+# dtbo separado (gera pelo kernel)
+BOARD_KERNEL_SEPARATED_DTBO := true
+# não apontar para um prebuilt, pois vamos gerar o dtbo do source
+BOARD_PREBUILT_DTBOIMAGE :=
+
+# base/paging/cmdline (mantive os seus valores)
+BOARD_BOOTIMG_HEADER_VERSION := 3
 BOARD_KERNEL_BASE := 0x3fff8000
 BOARD_KERNEL_PAGESIZE := 4096
 BOARD_KERNEL_CMDLINE += bootopt=64S3,32N2,64N2
-BOARD_INCLUDE_DTB_IN_BOOTIMG := true
-BOARD_KERNEL_IMAGE_NAME := Image.gz-dtb
-BOARD_KERNEL_SEPARATED_DTBO := false
-BOARD_PREBUILT_DTBOIMAGE := $(KERNEL_PATH)/dtbo.img
 BOARD_RAMDISK_USE_LZ4 := true
 
 # -----------------------------------------------------
