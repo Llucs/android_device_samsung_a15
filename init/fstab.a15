@@ -1,0 +1,23 @@
+# fstab para Samsung Galaxy A15 (SM-A155M - MT6789 / Helio G99)
+
+# system, vendor, product, system_ext vêm da super
+/dev/block/by-name/super     /super        ext4    ro                                         wait
+
+# userdata
+/dev/block/by-name/userdata  /data         f2fs    nosuid,nodev,discard,fsync_mode=nobarrier  wait,check,quota
+
+# metadata
+/dev/block/by-name/metadata  /metadata     ext4    noatime,nosuid,nodev                       wait,check
+
+# cache
+/dev/block/by-name/cache     /cache        ext4    noatime,nosuid,nodev                       wait,check
+
+# efs
+/dev/block/by-name/efs       /efs          ext4    noatime,nosuid,nodev                       wait
+
+# para / param (configs Samsung)
+/dev/block/by-name/param     /mnt/vendor/param     ext4    nosuid,nodev,ro                   wait
+/dev/block/by-name/para      /mnt/vendor/para      ext4    nosuid,nodev,ro                   wait
+
+# vendor_boot contém ramdisk do VNDK
+/dev/block/by-name/vendor_boot  /vendor_boot   emmc    defaults   defaults
