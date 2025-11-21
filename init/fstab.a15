@@ -9,9 +9,6 @@
 # metadata
 /dev/block/by-name/metadata  /metadata     ext4    noatime,nosuid,nodev                       wait,check
 
-# cache
-/dev/block/by-name/cache     /cache        ext4    noatime,nosuid,nodev                       wait,check
-
 # efs
 /dev/block/by-name/efs       /efs          ext4    noatime,nosuid,nodev                       wait
 
