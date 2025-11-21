@@ -33,6 +33,13 @@
 ![Device](device.jpg)
 
 ---
+
+*Since I'm the only one developing the device tree, it's expected that there will be several errors in the device tree, so if you want to contribute, please help me continue this project, It's very difficult to do all this alone at 13 years old, I have many things to do as well, so don't assume it's fully functional, wait until there are contributors who correct it.*
+
+I'm doing this on my own with the help of several AIs, but they don't always get it right....
+
+---
+
 ### Disclaimer
 > [!CAUTION]
 > I am **not responsible** for bricked devices, dead SD cards, thermonuclear war,  
