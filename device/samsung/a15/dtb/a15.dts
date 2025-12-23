@@ -1,0 +1,11 @@
+/dts-v1/;
+#include "mt6789.dtsi"
+
+/ {
+    model = "Samsung Galaxy A15 4G";
+    compatible = "samsung,a15", "mediatek,mt6789";
+
+    chosen {
+        bootargs = "console=tty0";
+    };
+};
