@@ -1,30 +1,8 @@
-on early-init
-    mount debugfs /sys/kernel/debug /sys/kernel/debug
-    chmod 0755 /sys/kernel/debug
+on boot
+    # Brilho da tela e sensores Samsung
+    chown system system /sys/class/backlight/panel0-backlight/brightness
+    chmod 0664 /sys/class/backlight/panel0-backlight/brightness
 
-on init
-    export ANDROID_ROOT /system
-    export ANDROID_DATA /data
-    export ANDROID_TZDATA_ROOT /system/usr/share/zoneinfo
-
-    symlink /dev/block/by-name /dev/by-name
-
-    mkdir /mnt/vendor/param 0755 root root
-    mkdir /mnt/vendor/para  0755 root root
-
-on fs
-    mount_all /vendor/etc/fstab.a15 --early
 on post-fs
-    chown system system /dev/misc
-
-on post-fs-data
-    mkdir /data/vendor 0771 system system
-
-on late-init
-    trigger zygote-start
-
-service vendor_mtklog /system/bin/mtklogd
-    class main
-    user root
-    group system
-    oneshot
+    # Forçar o carregamento de módulos específicos se necessário
+    exec u:r:magisk:s0 root root -- /system/bin/modprobe -a -d /vendor/lib/modules
