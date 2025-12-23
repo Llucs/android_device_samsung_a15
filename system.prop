@@ -1,53 +1,39 @@
-# System properties for a15
-ro.product.board=a15
-ro.product.device=a15
-ro.product.name=crdroid_a15
-ro.vendor.product.device=a15
-ro.vendor.product.name=crdroid_a15
-ro.vendor.product.board=a15
+#
+# system.prop for Samsung Galaxy A15 4G (SM-A155M)
+#
 
-# MediaTek specific properties
-ro.hardware.chipname=MT6789
-ro.mediatek.platform=MT6789
+# RIL (Rede e Modem) - Focado em 4G LTE
+ro.telephony.default_network=9
+telephony.lteOnGsmDevice=1
+ro.rf.version=SM-A155M
+persist.vendor.radio.fd.counter=150
+persist.vendor.radio.fd.off.counter=50
+ro.telephony.iwlan_operation_mode=default
 
-# Dalvik properties
-dalvik.vm.heapstartsize=8m
-dalvik.vm.heapgrowthlimit=256m
-dalvik.vm.heapsize=512m
-dalvik.vm.heaptargetutilization=0.75
-dalvik.vm.heapminfree=4m
-dalvik.vm.heapmaxfree=8m
-
-# Display properties
-ro.sf.lcd_density=440
-
-# Camera properties
-persist.vendor.camera.priv.debug=0
-
-# RIL properties
-ro.telephony.default_network=9,9
-
-# Fingerprint properties
-ro.hardware.fp.vendor=samsung
-
-# Audio properties
-ro.vendor.audio.sdk.fluencetype=none
-ro.vendor.audio.sdk.record.client=none
-ro.vendor.audio.sdk.playback.client=none
-ro.vendor.audio.zoom.support=false
-ro.vendor.audio.scenario.support=false
-
-# Bluetooth properties
-bluetooth.device.class_of_device=0x200404
-
-# Wi-Fi properties
-wifi.interface=wlan0
-
-# USB properties
-ro.usb.mtp=true
-ro.usb.ptp=true
-
-# Other properties
+# Gráficos e Performance (Mali-G57 MC2)
 ro.opengles.version=196610
-ro.hardware.egl=mali-g57
-ro.hardware.vulkan=mali-g57
+ro.surface_flinger.max_frame_buffer_acquired_buffers=3
+ro.surface_flinger.has_wide_color_display=true
+ro.surface_flinger.has_HDR_display=true
+debug.renderengine.backend=skiavk
+debug.cpurender.density=440
+
+# MediaTek Helio G99 (mt6789)
+ro.vendor.mediatek.platform=MT6789
+ro.hardware.keystore=mtee
+ro.hardware.gatekeeper=mtee
+
+# Wi-Fi e Bluetooth
+wifi.interface=wlan0
+ro.bluetooth.library_name=libbluetooth.so
+
+# Samsung Specific
+ro.product_ship=true
+ro.arch=arm64
+ro.config.tima=0
+ro.config.knox=0
+
+# Dalvik / Art (Otimização Android 15)
+dalvik.vm.dex2oat-threads=8
+dalvik.vm.image-dex2oat-threads=8
+dalvik.vm.boot-dex2oat-threads=8
