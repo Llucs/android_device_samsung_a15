@@ -1,4 +1,5 @@
 # BoardConfig.mk (Galaxy A15 SM-A155M - Helio G99)
+DEVICE_PATH := device/samsung/a15
 
 # -----------------------------------------------------
 # CPU / Arquitetura
@@ -26,41 +27,37 @@ TARGET_NO_BOOTLOADER := true
 TARGET_SCREEN_DENSITY := 440
 
 # -----------------------------------------------------
-# Kernel (Source Tree)
+# Kernel & Device Tree (DTB/DTBO)
 # -----------------------------------------------------
-DEVICE_PATH := device/samsung/a15
-KERNEL_PATH := $(DEVICE_PATH)/kernel
-
-TARGET_KERNEL_SOURCE := $(DEVICE_PATH)/kernel/kernel-5.10
+# Caminho corrigido para a nova estrutura
+TARGET_KERNEL_SOURCE := kernel/samsung/a15
 TARGET_KERNEL_ARCH := arm64
 TARGET_KERNEL_HEADER_ARCH := arm64
 TARGET_KERNEL_CONFIG := a15_defconfig
-TARGET_KERNEL_CLANG_VERSION := 12
+TARGET_KERNEL_CLANG_VERSION := r416183b1
 
-# MediaTek usa Image.gz
 BOARD_KERNEL_IMAGE_NAME := Image.gz
-
-# (REMOVIDO – só funciona com kernel prebuilt)
-# BOARD_INCLUDE_DTB_IN_BOOTIMG := false
-# BOARD_KERNEL_SEPARATED_DTBO := true
-# BOARD_PREBUILT_DTBOIMAGE :=
-
 BOARD_BOOTIMG_HEADER_VERSION := 3
 BOARD_KERNEL_BASE := 0x3fff8000
 BOARD_KERNEL_PAGESIZE := 4096
 BOARD_KERNEL_CMDLINE += bootopt=64S3,32N2,64N2
 BOARD_RAMDISK_USE_LZ4 := true
 
+# Instruções para usar o DTBO que extraímos
+BOARD_INCLUDE_DTB_IN_BOOTIMG := true
+BOARD_KERNEL_SEPARATED_DTBO := true
+# O compilador vai buscar o DTS que colocamos na pasta dtb/
+TARGET_CUSTOM_DTBO := $(DEVICE_PATH)/dtb/dtbo.dts
+
 # -----------------------------------------------------
 # Platform
 # -----------------------------------------------------
 TARGET_BOARD_PLATFORM := mt6789
-TARGET_USES_UEFI := true
 BOARD_USES_MTK_HARDWARE := true
 BOARD_HAS_MTK_HARDWARE := true
 
 # -----------------------------------------------------
-# Partições
+# Partições & File Systems
 # -----------------------------------------------------
 BOARD_FLASH_BLOCK_SIZE := 131072
 BOARD_BOOTIMAGE_PARTITION_SIZE := 67108864
@@ -71,98 +68,32 @@ BOARD_SYSTEMIMAGE_FILE_SYSTEM_TYPE := ext4
 BOARD_VENDORIMAGE_FILE_SYSTEM_TYPE := ext4
 BOARD_SYSTEM_EXTIMAGE_FILE_SYSTEM_TYPE := ext4
 BOARD_PRODUCTIMAGE_FILE_SYSTEM_TYPE := ext4
-
 BOARD_USERDATAIMAGE_FILE_SYSTEM_TYPE := f2fs
 
-BOARD_SYSTEMIMAGE_PARTITION_RESERVED_SIZE := 200000000
-BOARD_SYSTEM_EXTIMAGE_PARTITION_RESERVED_SIZE := 92160000
-BOARD_PRODUCTIMAGE_PARTITION_RESERVED_SIZE := 614400000
-BOARD_VENDORIMAGE_PARTITION_RESERVED_SIZE := 81457280
-
-TARGET_COPY_OUT_VENDOR := vendor
-TARGET_COPY_OUT_SYSTEM_EXT := system_ext
-TARGET_COPY_OUT_PRODUCT := product
-
-# -----------------------------------------------------
-# Super / Dynamic
-# -----------------------------------------------------
+# Super Partitions
 BOARD_SUPER_PARTITION_SIZE := 9126805504
 BOARD_SUPER_PARTITION_GROUPS := dynamic_partitions
-BOARD_PARTITION_LIST := system system_ext vendor product
-$(foreach p, $(BOARD_PARTITION_LIST), $(eval BOARD_$(call to-upper,$(p))IMAGE_FILE_SYSTEM_TYPE := ext4))
-$(foreach p, $(BOARD_PARTITION_LIST), $(eval TARGET_COPY_OUT_$(call to-upper,$(p)) := $(call to-lower,$(p))))
-
-BOARD_USES_METADATA_PARTITION := true
+BOARD_DYNAMIC_PARTITIONS_PARTITION_LIST := system system_ext vendor product
+BOARD_DYNAMIC_PARTITIONS_SIZE := 9122611200
 
 # -----------------------------------------------------
-# Recovery
-# -----------------------------------------------------
-TARGET_USERIMAGES_USE_EXT4 := true
-TARGET_USERIMAGES_USE_F2FS := true
-TARGET_RECOVERY_PIXEL_FORMAT := "RGBX_8888"
-BOARD_HAS_NO_BOOT_IMG := false
-BOARD_USES_RECOVERY_AS_BOOT := false
-
-# -----------------------------------------------------
-# A/B OTA
+# A/B OTA & AVB
 # -----------------------------------------------------
 AB_OTA_UPDATER := true
-AB_OTA_PARTITIONS += \
-    boot \
-    dtbo \
-    product \
-    system \
-    system_ext \
-    vendor \
-    vendor_boot \
-    vbmeta \
-    vbmeta_system \
-    vbmeta_vendor
+AB_OTA_PARTITIONS += boot dtbo product system system_ext vendor vendor_boot vbmeta vbmeta_system vbmeta_vendor
 
-# -----------------------------------------------------
-# Verified Boot (AVB)
-# -----------------------------------------------------
 BOARD_AVB_ENABLE := false
 BOARD_AVB_MAKE_VBMETA_IMAGE_ARGS += --set_hashtree_disabled_flag
 
 # -----------------------------------------------------
-# VNDK / Treble
+# SEPolicy (Apontando para a pasta correta que criamos)
 # -----------------------------------------------------
-PRODUCT_FULL_TREBLE_OVERRIDE := true
-BOARD_VNDK_VERSION := current
+BOARD_VENDOR_SEPOLICY_DIRS += $(DEVICE_PATH)/selinux
 
 # -----------------------------------------------------
-# SEPolicy
-# -----------------------------------------------------
-SYSTEM_EXT_PRIVATE_SEPOLICY_DIRS += $(DEVICE_PATH)/sepolicy/private
-SYSTEM_EXT_PUBLIC_SEPOLICY_DIRS += $(DEVICE_PATH)/sepolicy/public
-BOARD_VENDOR_SEPOLICY_DIRS += $(DEVICE_PATH)/sepolicy/vendor
-
-# -----------------------------------------------------
-# Wi-Fi
-# -----------------------------------------------------
-WPA_SUPPLICANT_VERSION := VER_0_8_X
-BOARD_WPA_SUPPLICANT_DRIVER := NL80211
-BOARD_HOSTAPD_DRIVER := NL80211
-
-WIFI_DRIVER_FW_PATH_PARAM := "/dev/wmtWifi"
-WIFI_DRIVER_FW_PATH_STA := "STA"
-WIFI_DRIVER_FW_PATH_AP := "AP"
-WIFI_DRIVER_FW_PATH_P2P := "P2P"
-WIFI_DRIVER_STATE_CTRL_PARAM := "/dev/wmtWifi"
-WIFI_DRIVER_STATE_ON := "1"
-WIFI_DRIVER_STATE_OFF := "0"
-WIFI_HIDL_UNIFIED_SUPPLICANT_SERVICE_RC_ENTRY := true
-WIFI_HIDL_FEATURE_DUAL_INTERFACE := true
-
-# -----------------------------------------------------
-# Identificadores
+# Wi-Fi & Identificadores
 # -----------------------------------------------------
 TARGET_VENDOR_PRODUCT_NAME := a15
 TARGET_VENDOR_DEVICE_NAME := a15
-
-# -----------------------------------------------------
-# F2FS Compression
-# -----------------------------------------------------
-PRODUCT_FS_COMPRESSION := 1
-BOARD_SUPPRESS_SECURE_ERASE := true
+PRODUCT_FULL_TREBLE_OVERRIDE := true
+BOARD_VNDK_VERSION := current
