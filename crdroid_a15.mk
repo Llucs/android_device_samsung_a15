@@ -1,23 +1,11 @@
-#
-# Copyright (C) 2024 The Android Open Source Project
-#
-# SPDX-License-Identifier: Apache-2.0
-#
+# Herda a base neutra que acabamos de configurar
+$(call inherit-product, device/samsung/a15/a15.mk)
 
-# Inherit from the base device configuration
-$(call inherit-product, device/samsung/a15/device.mk)
-
-# Inherit common crDroid configuration
+# Herda as configurações específicas do crDroid
 $(call inherit-product, vendor/crdroid/config/common.mk)
 
-# Device identifiers
+# Identidade da ROM
 PRODUCT_NAME := crdroid_a15
-PRODUCT_DEVICE := a15
-PRODUCT_BRAND := samsung
-PRODUCT_MODEL := SM-A155M
-PRODUCT_MANUFACTURER := samsung
-
-PRODUCT_GMS_CLIENTID_BASE := android-samsung
 
 # crDroid specific overrides
 CRDROID_BUILD_TYPE := OFFICIAL
