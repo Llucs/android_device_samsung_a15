@@ -1,13 +1,7 @@
-# Herda a base neutra que acabamos de configurar
+# Herdar as configurações da própria ROM (isso muda de ROM para ROM)
+$(call inherit-product, vendor/crdroid/config/common_full_phone.mk)
+
+# Herdar a nossa base universal que criamos acima
 $(call inherit-product, device/samsung/a15/a15.mk)
 
-# Herda as configurações específicas do crDroid
-$(call inherit-product, vendor/crdroid/config/common.mk)
-
-# Identidade da ROM
 PRODUCT_NAME := crdroid_a15
-
-# crDroid specific overrides
-CRDROID_BUILD_TYPE := OFFICIAL
-CRDROID_RELEASE := true
-CRDROID_MAINTAINER := Llucs
