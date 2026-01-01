@@ -24,7 +24,6 @@ BOARD_KERNEL_SEPARATED_DTBO := true
 
 # Cmdline para MT6789
 BOARD_KERNEL_CMDLINE := bootopt=64S3,32N2,64N2 
-BOARD_KERNEL_CMDLINE += androidboot.selinux=permissive
 
 # Vendor Boot (Necessário para Kernel 5.10+)
 BOARD_MOVE_GSI_AVB_KEYS_TO_VENDOR_BOOT := true
