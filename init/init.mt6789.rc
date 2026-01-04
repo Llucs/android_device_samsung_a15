@@ -25,8 +25,9 @@ on post-fs-data
     mkdir /data/vendor/log 0771 system system
     mkdir /data/vendor/log/mtklog 0771 system system
 
-service vendor.mtk_adsprpcd /vendor/bin/adsprpcd
-    class main
-    user system
-    group system
-    oneshot
+# Comentado porque o caminho não existe, melhor o áudio não funcionar do que dar bootloop, irei analisar melhor depois
+#service vendor.mtk_adsprpcd /vendor/bin/adsprpcd
+    #class main
+    #user system
+    #group system
+    #oneshot
