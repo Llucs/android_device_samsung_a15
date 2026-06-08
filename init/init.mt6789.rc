@@ -1,8 +1,13 @@
+#
+# Copyright (C) 2026 The LineageOS Project
+#
+# SPDX-License-Identifier: Apache-2.0
+#
+
 on early-init
     write /proc/sys/kernel/sched_stune_graph_check 1
 
 on init
-    # Configuração de CPUsets (ajuda na bateria e performance)
     mkdir /dev/cpuset/foreground
     copy /dev/cpuset/cpus /dev/cpuset/foreground/cpus
     copy /dev/cpuset/mems /dev/cpuset/foreground/mems
@@ -11,23 +16,12 @@ on init
     copy /dev/cpuset/mems /dev/cpuset/background/mems
 
 on boot
-    # Permissões para a GPU Mali
     chmod 0666 /dev/mali0
     chown system graphics /dev/mali0
-
-    # Configuração do agendador de tarefas (Sched)
     write /dev/stune/foreground/schedtune.prefer_idle 1
     write /dev/stune/top-app/schedtune.boost 10
     write /dev/stune/top-app/schedtune.prefer_idle 1
 
 on post-fs-data
-    # Caminhos de logs da MediaTek
     mkdir /data/vendor/log 0771 system system
     mkdir /data/vendor/log/mtklog 0771 system system
-
-# Comentado porque o caminho não existe, melhor o áudio não funcionar do que dar bootloop, irei analisar melhor depois
-#service vendor.mtk_adsprpcd /vendor/bin/adsprpcd
-    #class main
-    #user system
-    #group system
-    #oneshot

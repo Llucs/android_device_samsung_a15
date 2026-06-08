@@ -1,15 +1,13 @@
-/dev/block/by-name/*       0660   root   system
-/dev/tee1                  0660   root   system
-/dev/nvram                 0660   root   system
-/dev/misc                  0660   root   system
-/dev/uh                    0660   root   system
-/dev/proinfo               0660   root   system
-/dev/keyrefuge             0660   root   system
-/dev/keydata               0660   root   system
+#
+# Copyright (C) 2026 The LineageOS Project
+#
+# SPDX-License-Identifier: Apache-2.0
+#
 
-# WiFi MTK
-/dev/wmtWifi               0660   wifi   wifi
-/dev/connsys_*             0660   wifi   wifi
-
-# Vibrator / input
-/dev/input/*               0660   root   input
+/dev/block/by-name/super         0600   root       root
+/dev/block/by-name/userdata      0600   root       root
+/dev/block/by-name/metadata      0600   root       root
+/dev/block/by-name/efs           0600   root       root
+/dev/block/by-name/param         0600   root       root
+/dev/block/by-name/para          0600   root       root
+/dev/block/by-name/vendor_boot   0600   root       root

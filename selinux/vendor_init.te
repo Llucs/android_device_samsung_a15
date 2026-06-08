@@ -1,0 +1,3 @@
+type vendor_init, domain;
+type vendor_init_exec, exec_type, file_type, vendor_file_type;
+init_daemon_domain(vendor_init)

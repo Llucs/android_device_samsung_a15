@@ -1,4 +1,9 @@
+#
+# Copyright (C) 2026 The LineageOS Project
+#
+# SPDX-License-Identifier: Apache-2.0
+#
+
 on boot
-    # Brilho da tela e sensores Samsung
     chown system system /sys/class/backlight/panel0-backlight/brightness
     chmod 0664 /sys/class/backlight/panel0-backlight/brightness

@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <integer name="config_screenBrightnessSettingDefault">120</integer>
     <bool name="config_automatic_brightness_available">true</bool>

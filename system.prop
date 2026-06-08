@@ -1,39 +1,38 @@
 #
-# system.prop for Samsung Galaxy A15 4G (SM-A155M)
+# Copyright (C) 2026 The LineageOS Project
+#
+# SPDX-License-Identifier: Apache-2.0
 #
 
-# RIL (Rede e Modem) - Focado em 4G LTE
+# RIL
 ro.telephony.default_network=9
 telephony.lteOnGsmDevice=1
-ro.rf.version=SM-A155M
 persist.vendor.radio.fd.counter=150
 persist.vendor.radio.fd.off.counter=50
 ro.telephony.iwlan_operation_mode=default
 
-# Gráficos e Performance (Mali-G57 MC2)
+# Graphics (Mali-G57 MC2)
 ro.opengles.version=196610
 ro.surface_flinger.max_frame_buffer_acquired_buffers=3
 ro.surface_flinger.has_wide_color_display=true
 ro.surface_flinger.has_HDR_display=true
 debug.renderengine.backend=skiavk
-debug.cpurender.density=440
 
-# MediaTek Helio G99 (mt6789)
+# MediaTek Helio G99
 ro.vendor.mediatek.platform=MT6789
-ro.hardware.keystore=mtee
-ro.hardware.gatekeeper=mtee
+ro.hardware.keystore=mdfpp
+ro.hardware.gatekeeper=mdfpp
 
-# Wi-Fi e Bluetooth
+# WiFi / Bluetooth
 wifi.interface=wlan0
 ro.bluetooth.library_name=libbluetooth.so
 
-# Samsung Specific
+# Samsung
 ro.product_ship=true
-ro.arch=arm64
 ro.config.tima=0
 ro.config.knox=0
 
-# Dalvik / Art (Otimização Android 15)
+# Dalvik
 dalvik.vm.dex2oat-threads=8
 dalvik.vm.image-dex2oat-threads=8
 dalvik.vm.boot-dex2oat-threads=8
